@@ -17,13 +17,13 @@ services:
     build: ./backend
     container_name: backend
     volumes:
-      - ./backend/app:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://bubblow:ewhain1886@db:5432/bubblow_db
+      DATABASE_URL: postgresql://bubblow:ewhain1886@db:5432/bubblow_db
 
   frontend:
     build: ./frontend
