@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      POSTGRES_USER: bubblow
+      POSTGRES_PASSWORD: ewhain1886
+      POSTGRES_DB: bubblow_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./Bubblow_server_
+    container_name: backend
+    volumes:
+      - ./Bubblow_server_:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://bubblow:ewhain1886@db:5432/bubblow_db
+
+  frontend:
+    build:
+      context: ./Bubblow_client_/clinet
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
