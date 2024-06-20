@@ -14,10 +14,10 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    build: ./Bubblow_server_
+    build: ./backend
     container_name: backend
     volumes:
-      - ./Bubblow_server_:/app
+      - ./backend/app:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -26,9 +26,7 @@ services:
       - DATABASE_URL=postgresql://bubblow:ewhain1886@db:5432/bubblow_db
 
   frontend:
-    build:
-      context: ./Bubblow_client_/clinet
-      dockerfile: Dockerfile
+    build: ./frontend
     container_name: frontend
     ports:
       - "80:80"
